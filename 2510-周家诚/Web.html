@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王者荣耀主题网页</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 引入Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <!-- 配置Tailwind自定义颜色和字体 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // 王者荣耀主题色
+            primary: '#1E293B',
+            secondary: '#FF4D6D',
+            accent: '#7B2FFD',
+            gold: '#FFC107',
+            dark: '#0F172A',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            game: ['"Ma Shan Zheng"', 'cursive', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      }
+      .text-shadow-lg {
+        text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      }
+      .backdrop-blur-sm {
+        backdrop-filter: blur(4px);
+      }
+      .hero-gradient {
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      }
+      .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      }
+    }
+  </style>
+  <!-- 引入自定义字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+</head>
+<body class="bg-dark text-gray-100 min-h-screen">
+  <!-- 导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center backdrop-blur-sm bg-primary/80">
+      <a href="#hero" class="flex items-center space-x-2">
+        <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="王者荣耀Logo" class="h-10 w-auto">
+        <span class="font-game text-2xl text-gold">王者荣耀</span>
+      </a>
+      
+      <!-- 桌面端导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#hero" class="nav-link font-medium hover:text-gold transition-colors">首页</a>
+        <a href="#lao9men" class="nav-link font-medium hover:text-gold transition-colors">牢九门</a>
+        <a href="#no-smile" class="nav-link font-medium hover:text-gold transition-colors">无笑容</a>
+        <a href="#wheelchair" class="nav-link font-medium hover:text-gold transition-colors">轮椅英雄</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-gray-200 focus:outline-none">
+        <i class="fa fa-bars text-2xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="md:hidden hidden bg-primary/95 backdrop-blur-sm">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="#hero" class="py-2 border-b border-gray-700 hover:text-gold transition-colors">首页</a>
+        <a href="#lao9men" class="py-2 border-b border-gray-700 hover:text-gold transition-colors">牢九门</a>
+        <a href="#no-smile" class="py-2 border-b border-gray-700 hover:text-gold transition-colors">无笑容</a>
+        <a href="#wheelchair" class="py-2 hover:text-gold transition-colors">轮椅英雄</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区 -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient pt-16">
+    <!-- 背景特效 -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-full bg-[url('https://p.qqan.com/up/2021-1/16104169738734997.png')] opacity-5 bg-repeat" style="background-size: 300px;"></div>
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/20 rounded-full filter blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full filter blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 py-16 relative z-10">
+      <div class="flex flex-col items-center text-center">
+        <h1 class="font-game text-[clamp(2.5rem,8vw,5rem)] font-bold text-white leading-tight text-shadow-lg mb-6">
+          王者荣耀
+          <span class="text-gold">主题馆</span>
+        </h1>
+        <p class="text-[clamp(1rem,3vw,1.5rem)] text-gray-300 max-w-3xl mb-10 text-shadow">
+          探索峡谷风云，感受电竞魅力，这里是属于真正王者的聚集地
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="#lao9men" class="px-8 py-3 bg-secondary hover:bg-secondary/80 text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-lg">
+            牢九门
+          </a>
+          <a href="#no-smile" class="px-8 py-3 bg-accent hover:bg-accent/80 text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-lg">
+            无笑容
+          </a>
+          <a href="#wheelchair" class="px-8 py-3 bg-gold hover:bg-gold/80 text-dark font-bold rounded-full transition-all transform hover:scale-105 shadow-lg">
+            轮椅英雄
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 滚动指示器 -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <a href="#lao9men" class="flex flex-col items-center text-gray-400 hover:text-white transition-colors">
+        <span class="text-sm mb-2">向下滚动</span>
+        <i class="fa fa-chevron-down"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 牢九门分页 -->
+  <section id="lao9men" class="py-24 bg-gradient-to-b from-primary to-dark">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="font-game text-[clamp(1.8rem,5vw,3rem)] font-bold text-gold mb-4">牢九门</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">峡谷中的九大强者，拿出就是胜利的保证</p>
+      </div>
+      
+      <!-- 英雄卡片网格 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+        <!-- 亚连 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="亚连" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">亚连</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 李元芳 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="李元芳" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">李元芳</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 李信 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="李信" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">李信</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 亚瑟 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="亚瑟" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">亚瑟</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 程咬金 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="程咬金" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">程咬金</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 项羽 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="项羽" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">项羽</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 李白 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="李白" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">李白</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 钟无艳 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="钟无艳" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">钟无艳</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+        
+        <!-- 蒙犽 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="蒙犽" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-4 left-4 text-xl font-bold text-white">蒙犽</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-center font-medium">"超标英雄，拿出来就是一分"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 一个真正想赢的人是没有笑容的 -->
+  <section id="no-smile" class="py-24 bg-gradient-to-b from-dark to-primary relative overflow-hidden">
+    <!-- 背景装饰 -->
+    <div class="absolute top-0 right-0 w-1/3 h-full bg-secondary/5 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-1/3 h-full bg-accent/5 blur-3xl"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="font-game text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-4">一个真正想赢的人是没有笑容的</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">梦泪经典偷水晶时刻，传奇永不落幕</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <!-- 梦泪偷水晶图片 -->
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-r from-secondary/30 to-accent/30 rounded-xl blur-lg transform translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"></div>
+          <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="梦泪偷水晶" class="w-full h-auto rounded-xl shadow-2xl relative z-10">
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end justify-center p-8 z-20">
+            <p class="text-white text-xl font-bold text-center">传奇时刻</p>
+          </div>
+        </div>
+        
+        <!-- 梦泪偷水晶表情 -->
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-r from-accent/30 to-secondary/30 rounded-xl blur-lg transform translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"></div>
+          <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="梦泪偷水晶表情" class="w-full h-auto rounded-xl shadow-2xl relative z-10">
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end justify-center p-8 z-20">
+            <p class="text-white text-xl font-bold text-center">专注的神情</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-16 text-center">
+        <div class="inline-block bg-primary/70 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-gray-700 max-w-2xl">
+          <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-white font-medium mb-4">"偷一次水晶，被惦记了10年"</p>
+          <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-gold font-game">"梦之泪伤，帅气的脸庞"</p>
+        </div>
+      </div>
+      
+      <!-- 数据统计 -->
+      <div class="mt-20 bg-primary/50 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-gray-700">
+        <h3 class="text-xl font-bold text-center mb-8 text-white">梦泪职业生涯数据</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-dark/50 rounded-lg p-6 text-center">
+            <div class="text-4xl font-bold text-secondary mb-2">500+</div>
+            <div class="text-gray-400">职业生涯总击杀</div>
+          </div>
+          <div class="bg-dark/50 rounded-lg p-6 text-center">
+            <div class="text-4xl font-bold text-accent mb-2">300+</div>
+            <div class="text-gray-400">职业生涯总助攻</div>
+          </div>
+          <div class="bg-dark/50 rounded-lg p-6 text-center">
+            <div class="text-4xl font-bold text-gold mb-2">10+</div>
+            <div class="text-gray-400">冠军荣誉</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 轮椅英雄 -->
+  <section id="wheelchair" class="py-24 bg-gradient-to-b from-primary to-dark">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="font-game text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-4">轮椅英雄</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">操作简单，易学易用，轻松上分之选</p>
+      </div>
+      
+      <!-- 英雄卡片网格 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <!-- 曹操 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="曹操" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-2 left-4 text-lg font-bold text-white">曹操</h3>
+          </div>
+        </div>
+        
+        <!-- 艾琳 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="艾琳" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-2 left-4 text-lg font-bold text-white">艾琳</h3>
+          </div>
+        </div>
+        
+        <!-- 凯 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="凯" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-2 left-4 text-lg font-bold text-white">凯</h3>
+          </div>
+        </div>
+        
+        <!-- 杨戬 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="杨戬" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-2 left-4 text-lg font-bold text-white">杨戬</h3>
+          </div>
+        </div>
+        
+        <!-- 海月 -->
+        <div class="bg-primary/50 rounded-xl overflow-hidden shadow-xl card-hover group">
+          <div class="relative overflow-hidden">
+            <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="海月" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-60"></div>
+            <h3 class="absolute bottom-2 left-4 text-lg font-bold text-white">海月</h3>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <div class="inline-block bg-primary/70 backdrop-blur-sm p-6 rounded-xl shadow-xl border border-gray-700">
+          <p class="text-[clamp(1.2rem,3vw,1.5rem)] text-white font-medium">"霍金都觉得自己天赋高了，一觉起来拿国标"</p>
+        </div>
+      </div>
+      
+      <!-- 胜率图表 -->
+      <div class="mt-20 bg-primary/50 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-gray-700">
+        <h3 class="text-xl font-bold text-center mb-8 text-white">轮椅英雄胜率统计</h3>
+        <div class="h-80">
+          <canvas id="winRateChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark py-12 border-t border-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center mb-6 md:mb-0">
+          <img src="https://p.qqan.com/up/2021-1/16104169738734997.png" alt="王者荣耀Logo" class="h-10 w-auto mr-3">
+          <span class="font-game text-2xl text-gold">王者荣耀主题馆</span>
+        </div>
+        
+        <div class="flex space-x-6 mb-6 md:mb-0">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fa fa-weibo text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fa fa-wechat text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fa fa-bilibili text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fa fa-youtube-play text-2xl"></i>
+          </a>
+        </div>
+        
+        <div class="text-gray-500 text-sm">
+          <p>© 2025 王者荣耀主题馆. 仅作展示用途.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-secondary hover:bg-secondary/80 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 opacity-0 invisible">
+    <i class="fa fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 100) {
+        navbar.classList.add('py-2', 'shadow-lg');
+        navbar.classList.remove('py-3');
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow-lg');
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+      } else {
+        menuToggle.innerHTML = '<i class="fa fa-times text-2xl"></i>';
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动端菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+          }
+        }
+      });
+    });
+    
+    // 返回顶部
+    backToTop.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 初始化胜率图表
+    window.addEventListener('load', function() {
+      const ctx = document.getElementById('winRateChart').getContext('2d');
+      
+      const winRateChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['曹操', '艾琳', '凯', '杨戬', '海月'],
+          datasets: [{
+            label: '胜率 (%)',
+            data: [52.3, 51.8, 53.5, 49.7, 54.2],
+            backgroundColor: [
+              'rgba(255, 77, 109, 0.7)',
+              'rgba(123, 47, 253, 0.7)',
+              'rgba(255, 193, 7, 0.7)',
+              'rgba(72, 187, 120, 0.7)',
+              'rgba(59, 130, 246, 0.7)'
+            ],
+            borderColor: [
+              'rgba(255, 77, 109, 1)',
+              'rgba(123, 47, 253, 1)',
+              'rgba(255, 193, 7, 1)',
+              'rgba(72, 187, 120, 1)',
+              'rgba(59, 130, 246, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 60,
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              },
+              ticks: {
+                color: 'rgba(255, 255, 255, 0.7)'
+              }
+            },
+            x: {
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              },
+              ticks: {
+                color: 'rgba(255, 255, 255, 0.7)'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: 'rgba(255, 255, 255, 0.7)'
+              }
+            }
+          }
+        }
+      });
+    });
+    
+    // 添加卡片进入动画
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.card-hover').forEach(card => {
+      observer.observe(card);
+    });
+    
+    // 添加渐入动画类
+    document.head.insertAdjacentHTML('beforeend', `
+      <style>
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+      </style>
+    `);
+  </script>
+</body>
+</html>
